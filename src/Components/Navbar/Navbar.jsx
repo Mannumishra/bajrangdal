@@ -120,10 +120,10 @@ const Navbar = () => {
                                 }
                             </Link>
                             <ul className={`work-mob-hover ${isWorkMobActive ? 'work-mob-active' : ''}`}>
-                                <li><Link onClick={()=>{handleWorkMobActive() ;handleMobDeActive()}} className='fontblack' to={'/'}>Home</Link></li>
-                                <li><Link onClick={()=>{handleWorkMobActive() ;handleMobDeActive()}} className='fontblack' to={'/'}>Home</Link></li>
-                                <li><Link onClick={()=>{handleWorkMobActive() ;handleMobDeActive()}} className='fontblack' to={'/'}>Home</Link></li>
-                                <li><Link onClick={()=>{handleWorkMobActive() ;handleMobDeActive()}} className='fontblack' to={'/'}>Home</Link></li>
+                                <li><Link onClick={()=>{handleWorkMobActive() ;handleMobDeActive()}} className='fontblack' to={'/medical-help'}>चिकित्सा सहायता</Link></li>
+                                <li><Link onClick={()=>{handleWorkMobActive() ;handleMobDeActive()}} className='fontblack' to={'/food'}>स्वस्थ भोजन</Link></li>
+                                <li><Link onClick={()=>{handleWorkMobActive() ;handleMobDeActive()}} className='fontblack' to={'/education'}>शिक्षा</Link></li>
+                                <li><Link onClick={()=>{handleWorkMobActive() ;handleMobDeActive()}} className='fontblack' to={'/water'}>स्वच्छ जल</Link></li>
                             </ul>
                         </li>
                         {/* <li>
