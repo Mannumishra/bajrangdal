@@ -33,6 +33,12 @@ const Navbar = () => {
         setIsMobActive(false)
     }
 
+    const [isWorkMobActive, setIsWorkMobActive] = useState(false)
+
+    const handleWorkMobActive = () => {
+        setIsWorkMobActive(!isWorkMobActive)
+    }
+
     return (
         <nav className="navbar">
             <div className="navbar-content">
@@ -99,7 +105,46 @@ const Navbar = () => {
                     <ul className="nav-link">
                         <li><Link to={'/'} onClick={handleMobDeActive} >Home</Link></li>
                         <li><Link to={'/about'} onClick={handleMobDeActive} >About Us</Link></li>
-                        <li><Link onClick={handleMobDeActive} >Work We Do</Link></li>
+                        <li className={`${isWorkMobActive ? 'autoheight' : ''}`}>
+                            <Link
+                                onClick={handleWorkMobActive}
+                                // className='formarrow'
+                                className={`formarrow fixheight forspacebetween `}
+                            >
+                                {
+                                    isWorkMobActive ? (
+                                        <> Work We Do <i className="ri-subtract-line rotate"></i></>
+                                    ) : (
+                                        <> Work We Do <i className="ri-add-line"></i></>
+                                    )
+                                }
+                            </Link>
+                            <ul className={`work-mob-hover ${isWorkMobActive ? 'work-mob-active' : ''}`}>
+                                <li><Link onClick={()=>{handleWorkMobActive() ;handleMobDeActive()}} className='fontblack' to={'/'}>Home</Link></li>
+                                <li><Link onClick={()=>{handleWorkMobActive() ;handleMobDeActive()}} className='fontblack' to={'/'}>Home</Link></li>
+                                <li><Link onClick={()=>{handleWorkMobActive() ;handleMobDeActive()}} className='fontblack' to={'/'}>Home</Link></li>
+                                <li><Link onClick={()=>{handleWorkMobActive() ;handleMobDeActive()}} className='fontblack' to={'/'}>Home</Link></li>
+                            </ul>
+                        </li>
+                        {/* <li>
+                                <Link
+                                    className='health-mob-pointer formarrow'
+                                    onClick={handleHealthMobActive}
+                                >
+                                    {
+                                        isHealthMobActive ? (
+                                            <> Health Insurance <i className="ri-subtract-line rotate"></i></>
+                                            ) : (
+                                               <> Health Insurance <i className="ri-add-line"></i></>
+                                                )
+                                    }
+                                </Link>
+                                <ul className={`health-mob-hover ${isHealthMobActive ? 'health-mob-active' : ''}`}>
+                                    <li><Link to={'/health-gain-policy'} onClick={() => {handleMenuDeActive() , handleHealthMobActive()}}><i className="ri-arrow-right-line"></i> Heath gain policy</Link></li>
+                                    <li><Link to={'/wellness'} onClick={() => {handleMenuDeActive() , handleHealthMobActive()}}><i className="ri-arrow-right-line"></i> Wellness</Link></li>
+                                    <li><Link to={'/personal-accident'} onClick={() => {handleMenuDeActive() , handleHealthMobActive()}}><i className="ri-arrow-right-line"></i> Personal accident</Link></li>
+                                </ul>
+                            </li> */}
                         <li><Link to={'/event'} onClick={handleMobDeActive} >Events & Activities</Link></li>
                         <li><Link to={'/team'} onClick={handleMobDeActive} >Our Team</Link></li>
                         <li><Link to={'/membership'} onClick={handleMobDeActive} >Membership</Link></li>

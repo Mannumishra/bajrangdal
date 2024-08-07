@@ -231,6 +231,9 @@
     .nav-links {
         display: flex;
     }
+    .nav-link li a{
+        text-decoration: none;
+    }
     .nav-links-mobile {
         display: none;
     }
@@ -262,7 +265,7 @@
 /* Mobile */
 @media (max-width: 768px) {
     .navbar{
-        height: 100px;
+        height: 80px;
         position: relative;
     }
     .nav-links {
@@ -284,6 +287,7 @@
         background-color: #333;
         text-align: center;
     }
+    
     .nav-links-mobile li {
         margin: 1rem 0;
     }
@@ -308,7 +312,7 @@
     }
 
     .navbar-content .logo{
-        width: 25%;
+        width: 35%;
         height: 100%;
         display: flex;
         align-items: center;
@@ -379,6 +383,7 @@
         align-items: center;
         justify-content: flex-start;
         color: white;   
+        text-decoration: none;
     }
 
     .mob-header .social-details{
@@ -412,4 +417,73 @@
     .navbar-content{
         padding: 0px 20px;
     }
+
+    .mob-drop-relative{
+        /* position: relative; */
+    }
+
+    /* .mob-drop{
+        height: 500px;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+    } */
+    .formarrow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 10px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    
+    .formarrow i {
+        transition: transform 0.3s ease;
+    }
+    
+    .formarrow i.rotate {
+        transform: rotate(180deg);
+    }
+    
+    .work-mob-hover {
+        background-color: #283734;
+        padding-left: 0px;
+        /* color: black; */
+        max-height: 0px;
+        overflow: hidden;
+        transition: max-height 0.5s ease, border-top 0.5s ease, border-bottom 0.5s ease;
+        border-top: none;
+        border-bottom: none;
+        /* width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0%; */
+    }
+    
+    /* .work-mob-hover li .fontblack{
+        color: black !important;
+    } */
+    
+    .work-mob-active {
+        max-height: 200px !important; /* Adjust this value as needed */
+        /* background-color: #000; */
+        border-top: 1px solid rgb(146, 146, 146);
+        border-bottom: 1px solid rgb(146, 146, 146);
+    }
+
+    .autoheight{
+        height: auto !important;
+    }
+
+    .fixheight{
+        height: 40px !important;
+    }
+
+    .forspacebetween{
+        justify-content: space-between !important;
+    }
+    
 }
