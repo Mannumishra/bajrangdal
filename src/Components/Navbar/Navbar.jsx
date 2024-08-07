@@ -59,8 +59,8 @@ const Navbar = () => {
                             <div className="call-detail">
                                 <p>Send Email</p>
                                 <a href="mailto:bajrangvahinidal@gmail.com" className="email" style={{ textDecoration: "none", color: "black" }}>
-                            bajrangvahinidal@gmail.com
-                        </a>
+                                    bajrangvahinidal@gmail.com
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -71,10 +71,10 @@ const Navbar = () => {
                             <li onMouseEnter={handleWorkActive} onMouseLeave={handleWorkActive} className='dropdown-relative'>
                                 <Link>Work We Do</Link>
                                 <ul className={`work-drop ${isWorkActive ? 'workShow' : ''}`}>
-                                    <li><Link>चिकित्सा सहायता</Link></li>
-                                    <li><Link>स्वस्थ भोजन</Link></li>
-                                    <li><Link>शिक्षा</Link></li>
-                                    <li><Link>स्वच्छ जल</Link></li>
+                                    <li><Link to='/medical-help'>चिकित्सा सहायता</Link></li>
+                                    <li><Link to='/food'>स्वस्थ भोजन</Link></li>
+                                    <li><Link to='/education'>शिक्षा</Link></li>
+                                    <li><Link to='/water'>स्वच्छ जल</Link></li>
                                 </ul>
                             </li>
                             <li><Link to='/event'>Events & Activities</Link></li>
@@ -99,7 +99,7 @@ const Navbar = () => {
                     <ul className="nav-link">
                         <li><Link to={'/'} onClick={handleMobDeActive} >Home</Link></li>
                         <li><Link to={'/about'} onClick={handleMobDeActive} >About Us</Link></li>
-                        <li><Link to={'/'} onClick={handleMobDeActive} >Work We Do</Link></li>
+                        <li><Link onClick={handleMobDeActive} >Work We Do</Link></li>
                         <li><Link to={'/event'} onClick={handleMobDeActive} >Events & Activities</Link></li>
                         <li><Link to={'/team'} onClick={handleMobDeActive} >Our Team</Link></li>
                         <li><Link to={'/membership'} onClick={handleMobDeActive} >Membership</Link></li>

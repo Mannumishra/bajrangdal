@@ -14,6 +14,10 @@ import PhotoGallery from './Components/Photogallery/PhotoGallery';
 import Contact from './Components/Contact/Contact';
 import Donate from './Components/Donate/Donate';
 import toast, { Toaster } from 'react-hot-toast';
+import Medical from './Components/Medical/Medical';
+import Food from './Components/Food/Food';
+import Education from './Components/Education/Education';
+import Water from './Components/Water/Water';
 
 
 
@@ -31,6 +35,10 @@ function App() {
         <Route path='/gallery' element={<PhotoGallery />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/donate' element={<Donate />} />
+        <Route path='/medical-help' element={<Medical />} />
+        <Route path='/food' element={<Food />} />
+        <Route path='/education' element={<Education />} />
+        <Route path='/water' element={<Water />} />
       </Routes>
       <Footer />
       <Toaster />
