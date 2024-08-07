@@ -1,0 +1,93 @@
+.whatwedo-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.whatwedo-header {
+    margin-bottom: 20px;
+}
+
+.whatwedo-cards {
+    display: flex;
+    gap: 10px; /* Increased gap for better spacing */
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.whatwedo-header h2 {
+    color: #e57300;
+    font-size: 45px;
+    font-weight: 800;
+}
+
+.card-div {
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 280px;
+    height: 350px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card-div:hover {
+    transform: scale(1.05);
+}
+
+.card-image {
+    height: 240px;
+    overflow: hidden;
+}
+
+.card-image img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-text {
+    margin-top: 10px;
+}
+
+.card-text p {
+    font-size: 27px;
+    font-weight: 800;
+    color: #333;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+    .card-div {
+        width: 45%; /* Adjust width for medium screens */
+        height: auto; /* Adjust height to auto for flexibility */
+    }
+}
+
+@media (max-width: 768px) {
+    .whatwedo-header h2 {
+        font-size: 36px; /* Adjust font size for smaller screens */
+    }
+
+    .card-div {
+        width: 100%; /* Full width on smaller screens */
+        height: auto; /* Adjust height to auto for flexibility */
+    }
+
+    .card-text p {
+        font-size: 22px; /* Adjust font size for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .whatwedo-header h2 {
+        font-size: 28px; /* Further reduce font size for extra small screens */
+    }
+
+    .card-text p {
+        font-size: 18px; /* Further reduce font size for extra small screens */
+    }
+}

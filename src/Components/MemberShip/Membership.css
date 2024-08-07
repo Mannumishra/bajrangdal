@@ -1,0 +1,142 @@
+.membership-form {
+  margin: 0 auto;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  max-width: 600px; /* Limiting max-width for better layout on large screens */
+}
+
+.memberimage img {
+  width: 100%;
+  padding: 10px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 0.25rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-warning {
+  background-color: #f0ad4e;
+  color: white;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #ec971f;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-danger {
+  color: red;
+}
+
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.breadcrumb-image img {
+  width: 100%;
+}
+
+.breadcrumb-text p {
+  margin-left: 1rem;
+  font-size: 1.25rem;
+}
+
+.container {
+  margin-top: 2rem;
+}
+
+.memvershipmainheading {
+  font-size: 40px;
+  text-transform: capitalize;
+  font-weight: 700;
+  color: #F5812A;
+}
+
+.membership-form h3 {
+  font-size: 30px;
+  text-align: center;
+  color: #F5812A;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .membership-form {
+      padding: 0.75rem;
+  }
+
+  .breadcrumb-text p {
+      font-size: 1rem;
+      margin-left: 0.5rem;
+  }
+
+  .memvershipmainheading {
+      font-size: 32px;
+  }
+
+  .membership-form h3 {
+      font-size: 24px;
+  }
+
+  .btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .membership-form {
+      padding: 0.5rem;
+  }
+
+  .breadcrumb-text p {
+      font-size: 0.875rem;
+      margin-left: 0.25rem;
+  }
+
+  .memvershipmainheading {
+      font-size: 28px;
+  }
+
+  .membership-form h3 {
+      font-size: 20px;
+  }
+
+  .btn {
+      padding: 0.5rem;
+      font-size: 0.75rem;
+  }
+}
