@@ -4,12 +4,12 @@
     background-color: #F9F4E8; 
     background-image: url(../../Images/about-one-shape-1.png);
     padding: 50px;
-    gap: 80px;
+    gap: 70px;
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .image-container {
-    width: 45%;
+    width: 47%;
 }
 
 .image-container img {
@@ -18,7 +18,7 @@
 }
 
 .text-container {
-    width: 55%;
+    width: 47%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

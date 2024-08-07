@@ -47,7 +47,9 @@ const Navbar = () => {
                             </div>
                             <div className="call-detail">
                                 <p>Helpline</p>
-                                <p>+91-7290928187 / 011-29961226</p>
+                                <a href="tel:+917290928187" className="phn" style={{ textDecoration: "none", color: "black" }}>
+                                    +91-7290928187 / 011-29961226
+                                </a>
                             </div>
                         </div>
                         <div className="call-box">
@@ -56,7 +58,9 @@ const Navbar = () => {
                             </div>
                             <div className="call-detail">
                                 <p>Send Email</p>
-                                <p>bajrangvahinidal@gmail.com</p>
+                                <a href="mailto:bajrangvahinidal@gmail.com" className="email" style={{ textDecoration: "none", color: "black" }}>
+                            bajrangvahinidal@gmail.com
+                        </a>
                             </div>
                         </div>
                     </div>
@@ -94,29 +98,30 @@ const Navbar = () => {
                     </div>
                     <ul className="nav-link">
                         <li><Link to={'/'} onClick={handleMobDeActive} >Home</Link></li>
-                        <li><Link to={'/'} onClick={handleMobDeActive} >About Us</Link></li>
+                        <li><Link to={'/about'} onClick={handleMobDeActive} >About Us</Link></li>
                         <li><Link to={'/'} onClick={handleMobDeActive} >Work We Do</Link></li>
-                        <li><Link to={'/'} onClick={handleMobDeActive} >Home</Link></li>
-                        <li><Link to={'/'} onClick={handleMobDeActive} >Home</Link></li>
-                        <li><Link to={'/'} onClick={handleMobDeActive} >Home</Link></li>
-                        <li><Link to={'/'} onClick={handleMobDeActive} >Home</Link></li>
-                        <li><Link to={'/'} onClick={handleMobDeActive} >Home</Link></li>
-                        <li><Link to={'/'} onClick={handleMobDeActive} >Home</Link></li>
+                        <li><Link to={'/event'} onClick={handleMobDeActive} >Events & Activities</Link></li>
+                        <li><Link to={'/team'} onClick={handleMobDeActive} >Our Team</Link></li>
+                        <li><Link to={'/membership'} onClick={handleMobDeActive} >Membership</Link></li>
+                        <li><Link to={'/news'} onClick={handleMobDeActive} >Gallery</Link></li>
+                        <li><Link to={'/gallery'} onClick={handleMobDeActive} >Contact Us</Link></li>
+                        <li><Link to={'/donate'} onClick={handleMobDeActive} >Donate now</Link></li>
                     </ul>
                     <div className="social-details">
-                        <a href='' className="email">
-                            <i class="ri-mail-fill"></i>
-                            hitesh@gmail.com
+                        <a href="mailto:bajrangvahinidal@gmail.com" className="email" style={{ textDecoration: "none", color: "white" }}>
+                            <i class="ri-mail-fill" style={{ color: "rgb(245, 129, 42)" }}></i>
+                            bajrangvahinidal@gmail.com
                         </a>
-                        <a href='' className="phn">
-                            <i class="ri-phone-fill"></i>
-                            9999999999
+                        <a href="tel:+917290928187" className="phn" style={{ textDecoration: "none", color: "white" }}>
+                            <i class="ri-phone-fill" style={{ color: "rgb(245, 129, 42)" }}></i>
+                            +91-7290928187 / 011-29961226
                         </a>
                         <div className="social-link">
-                            <i class="ri-instagram-fill"></i>
-                            <i class="ri-instagram-fill"></i>
-                            <i class="ri-instagram-fill"></i>
-                            <i class="ri-instagram-fill"></i>
+                            <i className="ri-facebook-circle-line text-light"></i>
+                            <i className="ri-twitter-line text-light"></i>
+                            <i className="ri-instagram-line text-light"></i>
+                            <i className="ri-linkedin-box-line text-light"></i>
+                            <i className="ri-youtube-line text-light"></i>
                         </div>
                     </div>
                 </div>
