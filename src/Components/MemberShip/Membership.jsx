@@ -33,7 +33,7 @@ const Membership = () => {
 
   const sendOtp = async () => {
     try {
-      const res = await axios.post('http://localhost:8000/api/send-otp', { email: formData.email });
+      const res = await axios.post('https://bajrangserver.onrender.com/api/send-otp', { email: formData.email });
       if (res.status === 200) {
         toast.success("OTP Sent Successfully !!!!");
         setOtpSent(true);
@@ -48,7 +48,7 @@ const Membership = () => {
 
   const verifyOtp = async () => {
     try {
-      const res = await axios.post('http://localhost:8000/api/verify-otp', { email: formData.email, otp });
+      const res = await axios.post('https://bajrangserver.onrender.com/api/verify-otp', { email: formData.email, otp });
       if (res.status === 200) {
         setVerifyMessage("Email Verify Successfully")
         setVerifyMale(true)
