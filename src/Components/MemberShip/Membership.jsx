@@ -14,17 +14,16 @@ const Membership = () => {
     address: '',
     city: '',
     state: '',
-    zip: '',
+    image: '',
     paymentMethod: '',
     donationAmount: '',
   });
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState('');
-  const [verifyMail ,setVerifyMale] = useState(false)
+  const [verifyMail, setVerifyMail] = useState(false);
   const [otpError, setOtpError] = useState('');
-  const [verifyMessage ,setVerifyMessage] = useState("")
+  const [verifyMessage, setVerifyMessage] = useState("");
   const [step, setStep] = useState(1);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,8 +49,8 @@ const Membership = () => {
     try {
       const res = await axios.post('https://bajrangserver.onrender.com/api/verify-otp', { email: formData.email, otp });
       if (res.status === 200) {
-        setVerifyMessage("Email Verify Successfully")
-        setVerifyMale(true)
+        setVerifyMessage("Email Verify Successfully");
+        setVerifyMail(true);
       } else {
         setOtpError('Invalid OTP. Please try again.');
       }
@@ -62,12 +61,12 @@ const Membership = () => {
 
   const handleNext = () => {
     if (step === 1) {
-      const errorMessage = []
-      if (!formData.title) errorMessage.push("Please fill the Titele")
-      if (!formData.name) errorMessage.push("Please fill the name")
-      if (!formData.email) errorMessage.push("Please fill the Email")
-      if (!formData.phone || formData.phone.length<10 ) errorMessage.push("Please fill the Phone or check the phone number")
-      if (!otp) errorMessage.push("Please Verify the email")
+      const errorMessage = [];
+      if (!formData.title) errorMessage.push("Please fill the Title");
+      if (!formData.name) errorMessage.push("Please fill the name");
+      if (!formData.email) errorMessage.push("Please fill the Email");
+      if (!formData.phone || formData.phone.length < 10) errorMessage.push("Please fill the Phone or check the phone number");
+      if (!otp) errorMessage.push("Please Verify the email");
       if (errorMessage.length > 0) {
         toast.error(errorMessage.join(","));
         return;
@@ -78,6 +77,11 @@ const Membership = () => {
 
   const handlePrevious = () => {
     setStep(step - 1);
+  };
+
+  const getfiledta = (e) => {
+    const { name, files } = e.target;
+    setFormData({ ...formData, [name]: files[0] });
   };
 
   const handleSubmit = (e) => {
@@ -108,7 +112,7 @@ const Membership = () => {
           <div className="col-md-6">
             {step === 1 && (
               <div className="membership-form">
-             <h3>Personal Information</h3>
+                <h3>Personal Information</h3>
                 <div className="form-group">
                   <label htmlFor="title">
                     Title<sup className="text-danger">*</sup>
@@ -144,11 +148,11 @@ const Membership = () => {
                       Verify OTP<sup className="text-danger">*</sup>
                     </label>
                     <input type="text" id="otp" name="otp" value={otp} onChange={(e) => setOtp(e.target.value)} required />
-                    {
-                      verifyMail ? null :  <button className="btn btn-warning mt-2" onClick={verifyOtp} type="button">
+                    {!verifyMail && (
+                      <button className="btn btn-warning mt-2" onClick={verifyOtp} type="button">
                         Verify
-                      </button> 
-                    }
+                      </button>
+                    )}
                   </div>
                 )}
                 <p className='text-success'>{verifyMessage}</p>
@@ -157,7 +161,7 @@ const Membership = () => {
                   <label htmlFor="phone">
                     Phone<sup className="text-danger">*</sup>
                   </label>
-                  <input type="tel" id="phone"  name="phone" value={formData.phone} onChange={handleChange} required />
+                  <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} required />
                 </div>
                 <button type="button" className="btn btn-warning" onClick={handleNext}>
                   Next
@@ -166,7 +170,7 @@ const Membership = () => {
             )}
             {step === 2 && (
               <div className="membership-form">
-              <h3>Contact Information</h3>
+                <h3>Contact Information</h3>
                 <div className="form-group">
                   <label htmlFor="address">
                     Address<sup className="text-danger">*</sup>
@@ -181,12 +185,35 @@ const Membership = () => {
                     <option value="" disabled>
                       Select your state
                     </option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="CA">California</option>
-                    {/* Add all other states here */}
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
                   </select>
                 </div>
                 <div className="form-group">
@@ -197,14 +224,13 @@ const Membership = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="zip">
-                    Upload Profile Pic<sup className="text-danger">*</sup>
+                    Profile Pic<sup className="text-danger">*</sup>
                   </label>
-                  <input type="file" id="zip" name="zip" value={formData.zip} onChange={handleChange} required />
+                  <input type="file" id="zip" name="image"  onChange={getfiledta} required />
                 </div>
                 <button type="button" className="btn btn-warning" onClick={handlePrevious}>
                   Previous
                 </button>
-                &nbsp;
                 <button type="button" className="btn btn-warning" onClick={handleNext}>
                   Next
                 </button>
@@ -212,17 +238,19 @@ const Membership = () => {
             )}
             {step === 3 && (
               <div className="membership-form">
-                  <h3>Donation Money</h3>
+                <h3>Payment Information</h3>
                 <div className="form-group">
                   <label htmlFor="paymentMethod">
                     Payment Method<sup className="text-danger">*</sup>
                   </label>
                   <select id="paymentMethod" name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} required>
                     <option value="" disabled>
-                      Select payment method
+                      Select your payment method
                     </option>
-                    <option value="online">Online</option>
-                    <option value="offline">Offline</option>
+                    <option value="creditCard">Credit Card</option>
+                    <option value="debitCard">Debit Card</option>
+                    <option value="netBanking">Net Banking</option>
+                    <option value="upi">UPI</option>
                   </select>
                 </div>
                 <div className="form-group">
@@ -233,8 +261,8 @@ const Membership = () => {
                 </div>
                 <button type="button" className="btn btn-warning" onClick={handlePrevious}>
                   Previous
-                </button> &nbsp;
-                <button type="submit" className="btn btn-warning" onClick={handleSubmit}>
+                </button>
+                <button type="submit" className="btn btn-success" onClick={handleSubmit}>
                   Submit
                 </button>
               </div>
