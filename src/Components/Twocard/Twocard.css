@@ -1,5 +1,5 @@
 .twocard-section {
-  padding: 50px 20px; /* Reduced padding for smaller screens */
+  padding: 50px 120px; /* Reduced padding for smaller screens */
   background-color: #f5f5f5;
   text-align: center;
 }
@@ -23,7 +23,10 @@
   transition: transform 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px; /* Added margin to separate cards */
+  height: 300px;
 }
 
 .twocard:hover {
@@ -44,12 +47,13 @@
 }
 
 .text-container-two p {
-  font-size: 25px; /* Reduced font size for smaller screens */
+  font-size: 45px; /* Reduced font size for smaller screens */
   font-weight: bold;
   color: white;
   text-align: left;
-  line-height: 30px;
+  line-height: 40px;
   cursor: pointer;
+  /* text-align: center; */
 }
 
 .text-container-two p:hover {
@@ -66,7 +70,7 @@
   padding: 10px 35px;
   font-size: 16px;
   cursor: pointer;
-  width: 60%; /* Increased width for better touch targets */
+  width: 30%; /* Increased width for better touch targets */
   transition: background-color 0.3s ease-in-out;
   margin: 0 auto; /* Centered the button */
 }

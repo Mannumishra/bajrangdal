@@ -16,10 +16,10 @@ const Twocard = () => {
           </div>
           <button className="twocard-button">Join Now</button>
         </div>
-        <div className="twocard">
+        <div className="twocard" style={{backgroundColor:"#FBD45A"}}>
           <div className="twocard-content">
             <div className="icon-container">
-              <i className="ri-ping-pong-line"></i>
+              <i className="ri-ping-pong-line" style={{color:"#F5812A"}}></i>
             </div>
             <div className="text-container-two">
               <p>Gift a Sapling</p>

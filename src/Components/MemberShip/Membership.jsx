@@ -4,6 +4,7 @@ import brudcrumb from '../../Images/brudcrum.png';
 import './Membership.css';
 import image from '../../Images/1698995952_5db1424e8afbf6462406.jpeg';
 import toast from 'react-hot-toast';
+import { Navigate } from 'react-router-dom';
 
 const Membership = () => {
   const [formData, setFormData] = useState({
@@ -32,11 +33,12 @@ const Membership = () => {
 
   const sendOtp = async () => {
     try {
-      const res = await axios.post('https://bajrangserver.onrender.com/api/send-otp', { email: formData.email });
+      const res = await axios.post('http://localhost:9000/api/send-otp', { email: formData.email });
       if (res.status === 200) {
         toast.success("OTP Sent Successfully !!!!");
         setOtpSent(true);
         setOtpError('');
+        setVerifyMessage('')
       } else {
         setOtpError('Failed to send OTP. Please try again.');
       }
@@ -47,17 +49,22 @@ const Membership = () => {
 
   const verifyOtp = async () => {
     try {
-      const res = await axios.post('https://bajrangserver.onrender.com/api/verify-otp', { email: formData.email, otp });
+      const res = await axios.post('http://localhost:9000/api/verify-otp', { email: formData.email, otp });
       if (res.status === 200) {
         setVerifyMessage("Email Verify Successfully");
         setVerifyMail(true);
       } else {
+        setVerifyMail(false)
         setOtpError('Invalid OTP. Please try again.');
       }
     } catch (error) {
       setOtpError('Invalid OTP. Please try again.');
     }
-  };
+  }
+
+  const errorverify = ()=>{
+    toast.error("Please verify the Email")
+  }
 
   const handleNext = () => {
     if (step === 1) {
@@ -84,9 +91,42 @@ const Membership = () => {
     setFormData({ ...formData, [name]: files[0] });
   };
 
-  const handleSubmit = (e) => {
+  const formdata = new FormData();
+  formdata.append('title', formData.title);
+  formdata.append('name', formData.name);
+  formdata.append('email', formData.email);
+  formdata.append('phone', formData.phone);
+  formdata.append('address', formData.address);
+  formdata.append('city', formData.city);
+  formdata.append('state', formData.state);
+  formdata.append('image', formData.image);
+  formdata.append('paymentMethod', formData.paymentMethod);
+  formdata.append('donationAmount', formData.donationAmount);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Submit the form data
+    console.log(formData)
+    try {
+      const res = await axios.post("http://localhost:9000/api/signup", formdata)
+      if (res.status === 200) {
+        toast.success("Member Ship Form Send Successfully")
+        Navigate("/membership")
+        setFormData({
+          title: '',
+          name: '',
+          email: '',
+          phone: '',
+          address: '',
+          city: '',
+          state: '',
+          image: '',
+          paymentMethod: '',
+          donationAmount: '',
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
@@ -136,11 +176,11 @@ const Membership = () => {
                     Email<sup className="text-danger">*</sup>
                   </label>
                   <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
-                  {!otpSent && (
-                    <button className="btn btn-warning mt-1" onClick={sendOtp} type="button">
+                  {
+                    otpSent ? null : <button className="btn btn-warning mt-1" onClick={sendOtp} type="button">
                       Send OTP
                     </button>
-                  )}
+                  }
                 </div>
                 {otpSent && (
                   <div className="form-group">
@@ -148,11 +188,16 @@ const Membership = () => {
                       Verify OTP<sup className="text-danger">*</sup>
                     </label>
                     <input type="text" id="otp" name="otp" value={otp} onChange={(e) => setOtp(e.target.value)} required />
-                    {!verifyMail && (
-                      <button className="btn btn-warning mt-2" onClick={verifyOtp} type="button">
-                        Verify
-                      </button>
-                    )}
+                    {
+                      verifyMail ? null : <>
+                        <button className="btn btn-warning mt-2" onClick={verifyOtp} type="button">
+                          Verify
+                        </button> &nbsp;
+                        <button className="btn btn-warning mt-1" onClick={sendOtp} type="button">
+                          ReSend Otp
+                        </button>
+                      </>
+                    }
                   </div>
                 )}
                 <p className='text-success'>{verifyMessage}</p>
@@ -163,9 +208,13 @@ const Membership = () => {
                   </label>
                   <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} required />
                 </div>
-                <button type="button" className="btn btn-warning" onClick={handleNext}>
-                  Next
-                </button>
+                {
+                  verifyMail ? <button type="button" className="btn btn-warning" onClick={handleNext}>
+                    Next
+                  </button> : <button type="button" className="btn btn-warning" onClick={errorverify}>
+                    Next
+                  </button>
+                }
               </div>
             )}
             {step === 2 && (
@@ -226,11 +275,11 @@ const Membership = () => {
                   <label htmlFor="zip">
                     Profile Pic<sup className="text-danger">*</sup>
                   </label>
-                  <input type="file" id="zip" name="image"  onChange={getfiledta} required />
+                  <input type="file" id="zip" name="image" onChange={getfiledta} required />
                 </div>
                 <button type="button" className="btn btn-warning" onClick={handlePrevious}>
                   Previous
-                </button>
+                </button> &nbsp;
                 <button type="button" className="btn btn-warning" onClick={handleNext}>
                   Next
                 </button>
@@ -239,6 +288,12 @@ const Membership = () => {
             {step === 3 && (
               <div className="membership-form">
                 <h3>Payment Information</h3>
+                <div className="form-group">
+                  <label htmlFor="donationAmount">
+                    Donation Amount<sup className="text-danger">*</sup>
+                  </label>
+                  <input type="number" id="donationAmount" name="donationAmount" value={formData.donationAmount} onChange={handleChange} required />
+                </div>
                 <div className="form-group">
                   <label htmlFor="paymentMethod">
                     Payment Method<sup className="text-danger">*</sup>
@@ -253,15 +308,10 @@ const Membership = () => {
                     <option value="upi">UPI</option>
                   </select>
                 </div>
-                <div className="form-group">
-                  <label htmlFor="donationAmount">
-                    Donation Amount<sup className="text-danger">*</sup>
-                  </label>
-                  <input type="number" id="donationAmount" name="donationAmount" value={formData.donationAmount} onChange={handleChange} required />
-                </div>
+
                 <button type="button" className="btn btn-warning" onClick={handlePrevious}>
                   Previous
-                </button>
+                </button> &nbsp;
                 <button type="submit" className="btn btn-success" onClick={handleSubmit}>
                   Submit
                 </button>
