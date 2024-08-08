@@ -153,7 +153,7 @@ const Membership = () => {
             {step === 1 && (
               <div className="membership-form">
                 <h3>Personal Information</h3>
-                <div className="form-group">
+                <div className="form-group" style={{width:"150px"}}>
                   <label htmlFor="title">
                     Title<sup className="text-danger">*</sup>
                   </label>
