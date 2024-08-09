@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import image from '../../Images/1698929667_c2907cd0bdf6973ac1f1.jpeg'
 import About from '../About/About'
 import Whatwedo from '../Whatvedo/Whatwedo'
@@ -6,6 +6,12 @@ import Knowsection from '../Knowsection/Knowsection'
 import Twocard from '../Twocard/Twocard'
 import PhotoGallery from '../Photogallery/PhotoGallery'
 const Home = () => {
+    useEffect(()=>{
+        window.scrollTo({
+          top:0,
+          behavior:"smooth"
+        })
+      },[])
     return (
         <>
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">

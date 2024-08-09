@@ -18,6 +18,9 @@ import Medical from './Components/Medical/Medical';
 import Food from './Components/Food/Food';
 import Education from './Components/Education/Education';
 import Water from './Components/Water/Water';
+import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
+import TermsOfService from './Components/TermsOfService/TermsOfService';
+import PaymentSuccess from './Components/Payment/Payment';
 
 
 
@@ -39,6 +42,9 @@ function App() {
         <Route path='/food' element={<Food />} />
         <Route path='/education' element={<Education />} />
         <Route path='/water' element={<Water />} />
+        <Route path='/privacyPolicy' element={<PrivacyPolicy />} />
+        <Route path='/termservice' element={<TermsOfService />} />
+        <Route path='/success' element={<PaymentSuccess />} />
       </Routes>
       <Footer />
       <Toaster />

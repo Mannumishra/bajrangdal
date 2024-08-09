@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import image from '../../Images/1698995952_5db1424e8afbf6462406.jpeg';
 import brudcrumb from '../../Images/brudcrum.png'
 import './About.css';
 
 const About = () => {
   const location = window.location.pathname
+  useEffect(()=>{
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    })
+  },[])
   return (
     <>
       {

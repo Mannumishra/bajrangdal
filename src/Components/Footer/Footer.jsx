@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Footer.css';
+import { Link, useFetcher } from 'react-router-dom';
 
 const Footer = () => {
+  useEffect(()=>{
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    })
+  },[])
   return (
     <>
     <section className="footer-section">
@@ -15,10 +22,17 @@ const Footer = () => {
         <div className="footer-links">
           <div>
             <h3>Links</h3>
-            <div><h4>Home</h4></div>
-            <div><h4>About</h4></div>
-            <div><h4>Gallery</h4></div>
-            <div><h4>Contact</h4></div>
+            <div><h4><Link to='/' style={{textDecoration:"none" ,color:"white"}}>Home</Link></h4></div>
+            <div><h4><Link to='/about' style={{textDecoration:"none" ,color:"white"}}>About</Link></h4></div>
+            <div><h4><Link to='/gallery' style={{textDecoration:"none" ,color:"white"}}>Gallery</Link></h4></div>
+            <div><h4><Link to='/contact' style={{textDecoration:"none" ,color:"white"}}>Contact</Link></h4></div>
+          </div>
+        </div>
+        <div className="footer-links">
+          <div>
+            <h3>Use Full Links</h3>
+            <div><h4><Link to='/privacyPolicy' style={{textDecoration:"none" ,color:"white"}}>Privacy Policy</Link></h4></div>
+            <div><h4><Link to='/termservice' style={{textDecoration:"none" ,color:"white"}}>Term Of Service</Link></h4></div>
           </div>
         </div>
         <div className="footer-contact">

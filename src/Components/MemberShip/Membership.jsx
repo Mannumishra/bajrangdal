@@ -4,12 +4,14 @@ import brudcrumb from '../../Images/brudcrum.png';
 import './Membership.css';
 import image from '../../Images/1698995952_5db1424e8afbf6462406.jpeg';
 import toast from 'react-hot-toast';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 const Membership = () => {
   const [formData, setFormData] = useState({
     title: '',
     name: '',
+    paranrsName: "",
     email: '',
     phone: '',
     address: '',
@@ -20,12 +22,14 @@ const Membership = () => {
     donationAmount: '',
   });
   const [otpSent, setOtpSent] = useState(false);
+  const [loading, setLoading] = useState(false)
   const [otp, setOtp] = useState('');
   const [verifyMail, setVerifyMail] = useState(false);
   const [otpError, setOtpError] = useState('');
   const [verifyMessage, setVerifyMessage] = useState("");
   const [step, setStep] = useState(1);
 
+  const navigate = useNavigate()
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -33,36 +37,44 @@ const Membership = () => {
 
   const sendOtp = async () => {
     try {
+      setLoading(true)
       const res = await axios.post('http://localhost:9000/api/send-otp', { email: formData.email });
       if (res.status === 200) {
         toast.success("OTP Sent Successfully !!!!");
         setOtpSent(true);
         setOtpError('');
         setVerifyMessage('')
+        setLoading(false)
       } else {
+        setLoading(false)
         setOtpError('Failed to send OTP. Please try again.');
       }
     } catch (error) {
+      setLoading(false)
       setOtpError('Failed to send OTP. Please try again.');
     }
   };
 
   const verifyOtp = async () => {
     try {
+      setLoading(true)
       const res = await axios.post('http://localhost:9000/api/verify-otp', { email: formData.email, otp });
       if (res.status === 200) {
         setVerifyMessage("Email Verify Successfully");
         setVerifyMail(true);
+        setLoading(false)
       } else {
         setVerifyMail(false)
+        setLoading(false)
         setOtpError('Invalid OTP. Please try again.');
       }
     } catch (error) {
+      setLoading(false)
       setOtpError('Invalid OTP. Please try again.');
     }
   }
 
-  const errorverify = ()=>{
+  const errorverify = () => {
     toast.error("Please verify the Email")
   }
 
@@ -94,6 +106,7 @@ const Membership = () => {
   const formdata = new FormData();
   formdata.append('title', formData.title);
   formdata.append('name', formData.name);
+  formdata.append('paranrsName', formData.paranrsName);
   formdata.append('email', formData.email);
   formdata.append('phone', formData.phone);
   formdata.append('address', formData.address);
@@ -105,32 +118,55 @@ const Membership = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
     try {
-      const res = await axios.post("http://localhost:9000/api/signup", formdata)
+      setLoading(true);
+      const res = await axios.post('http://localhost:9000/api/signup', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
       if (res.status === 200) {
-        toast.success("Member Ship Form Send Successfully")
-        Navigate("/membership")
-        setFormData({
-          title: '',
-          name: '',
-          email: '',
-          phone: '',
-          address: '',
-          city: '',
-          state: '',
-          image: '',
-          paymentMethod: '',
-          donationAmount: '',
-        })
+        // toast.success('Membership Form Sent Successfully');
+        // Open Razorpay Checkout
+        const { orderId, amount } = res.data; // Ensure your backend returns these
+        const options = {
+          key: process.env.REACT_APP_RAZORPAY_KEY_ID, // Add your Razorpay key here
+          amount: amount,
+          currency: 'INR',
+          name: 'Bajrang Vahini Dal',
+          description: 'Test Transaction',
+          order_id: orderId,
+          handler: async function (response) {
+            // Send payment details to backend for verification
+            const verificationResponse = await axios.post('http://localhost:9000/api/payment-verification', {
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+              userId: res.data.userId,
+            });
+            if (verificationResponse.status === 200) {
+              toast.success('Payment Successful');
+              navigate('/success'); // Redirect to success page or wherever
+            } else {
+              toast.error('Payment Verification Failed');
+            }
+          },
+          prefill: {
+            name: formData.name,
+            email: formData.email,
+            contact: formData.phone,
+          },
+        };
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
       }
+      setLoading(false);
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      setLoading(false);
     }
   };
 
   return (
     <>
+
+      {loading ? <Loading /> : ""}
       <div className="breadcrumb-container">
         <div className="breadcrumb-image">
           <img src={brudcrumb} alt="Breadcrumb" />
@@ -153,23 +189,35 @@ const Membership = () => {
             {step === 1 && (
               <div className="membership-form">
                 <h3>Personal Information</h3>
-                <div className="form-group" style={{width:"150px"}}>
-                  <label htmlFor="title">
-                    Title<sup className="text-danger">*</sup>
-                  </label>
-                  <select id="title" name="title" value={formData.title} onChange={handleChange} required>
-                    <option value="" disabled>
-                      Select your title
-                    </option>
-                    <option value="Mr">Mr.</option>
-                    <option value="Mrs">Mrs.</option>
-                  </select>
+                <div className="row">
+                  <div className="col-md-3">
+                    <div className="form-group" >
+                      <label htmlFor="title">
+                        Title<sup className="text-danger">*</sup>
+                      </label>
+                      <select id="title" name="title" value={formData.title} onChange={handleChange} required>
+                        <option value="" disabled>
+                          Title
+                        </option>
+                        <option value="Mr">Mr.</option>
+                        <option value="Mrs">Mrs.</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-md-9">
+                    <div className="form-group">
+                      <label htmlFor="name">
+                        Name<sup className="text-danger">*</sup>
+                      </label>
+                      <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+                    </div>
+                  </div>
                 </div>
                 <div className="form-group">
                   <label htmlFor="name">
-                    Name<sup className="text-danger">*</sup>
+                    Guardian Name<sup className="text-danger">*</sup>
                   </label>
-                  <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+                  <input type="text" id="name" name="paranrsName" value={formData.paranrsName} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="email">
@@ -228,17 +276,20 @@ const Membership = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="state">
-                    State<sup className="text-danger">*</sup>
+                    State/UT<sup className="text-danger">*</sup>
                   </label>
                   <select id="state" name="state" value={formData.state} onChange={handleChange} required>
-                    <option value="" disabled>
-                      Select your state
+                    <option value="" selected disabled>
+                      Select your state/UT
                     </option>
                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                     <option value="Assam">Assam</option>
+                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
                     <option value="Bihar">Bihar</option>
                     <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Delhi">Delhi</option>
                     <option value="Goa">Goa</option>
                     <option value="Gujarat">Gujarat</option>
                     <option value="Haryana">Haryana</option>
@@ -263,8 +314,13 @@ const Membership = () => {
                     <option value="Uttar Pradesh">Uttar Pradesh</option>
                     <option value="Uttarakhand">Uttarakhand</option>
                     <option value="West Bengal">West Bengal</option>
+                    <option value="Ladakh">Ladakh</option>
+                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="Puducherry">Puducherry</option>
                   </select>
                 </div>
+
                 <div className="form-group">
                   <label htmlFor="city">
                     City<sup className="text-danger">*</sup>
@@ -302,10 +358,8 @@ const Membership = () => {
                     <option value="" disabled>
                       Select your payment method
                     </option>
-                    <option value="creditCard">Credit Card</option>
-                    <option value="debitCard">Debit Card</option>
-                    <option value="netBanking">Net Banking</option>
-                    <option value="upi">UPI</option>
+                    <option value="Online">Online</option>
+                    <option value="Offline">Offline</option>
                   </select>
                 </div>
 
