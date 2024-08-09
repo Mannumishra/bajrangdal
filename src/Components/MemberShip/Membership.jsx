@@ -403,7 +403,7 @@ const Membership = () => {
                     <label htmlFor="checkNumber">
                       Cheque Number<sup className="text-danger">*</sup>
                     </label>
-                    <input type="text" id="checkNumber" name="checkNumber" value={formData.checkNumber} onChange={handleChange} required />
+                    <input type="text" id="checkNumber" name="checkNumber" value={formData.checkNumber} onChange={handleChange} required  placeholder='Cheque Number'/>
                   </div>
                 )}
 
@@ -412,7 +412,7 @@ const Membership = () => {
                     <label htmlFor="otherInformation">
                       Additional Information<sup className="text-danger">*</sup>
                     </label>
-                    <input type="text" id="otherInformation" name="otherInformation" value={formData.otherInformation} onChange={handleChange} required />
+                    <input type="text" id="otherInformation" name="checkNumber" value={formData.checkNumber} onChange={handleChange} required placeholder='Refrence Number'/>
                   </div>
                 )}
 
