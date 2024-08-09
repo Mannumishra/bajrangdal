@@ -20,7 +20,9 @@ const Membership = () => {
     image: '',
     paymentMethod: '',
     donationAmount: '',
+    checkNumber: ''
   });
+  const [offlineMethod, setOfflineMethod] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false)
   const [otp, setOtp] = useState('');
@@ -32,7 +34,16 @@ const Membership = () => {
   const navigate = useNavigate()
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === 'paymentMethod' && value === 'Offline') {
+      setOfflineMethod('');
+    }
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleOfflineChange = (e) => {
+    const { value } = e.target;
+    setOfflineMethod(value);
+    setFormData({ ...formData, paymentMethod: 'Offline', [e.target.name]: value });
   };
 
   const sendOtp = async () => {
@@ -120,52 +131,60 @@ const Membership = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.post('http://localhost:9000/api/signup', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
-      if (res.status === 200) {
-        // toast.success('Membership Form Sent Successfully');
-        // Open Razorpay Checkout
-        const { orderId, amount } = res.data; // Ensure your backend returns these
-        const options = {
-          key: process.env.REACT_APP_RAZORPAY_KEY_ID, // Add your Razorpay key here
-          amount: amount,
-          currency: 'INR',
-          name: 'Bajrang Vahini Dal',
-          description: 'Test Transaction',
-          order_id: orderId,
-          handler: async function (response) {
-            // Send payment details to backend for verification
-            const verificationResponse = await axios.post('http://localhost:9000/api/payment-verification', {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-              userId: res.data.userId,
-            });
-            if (verificationResponse.status === 200) {
-              toast.success('Payment Successful');
-              navigate('/success'); // Redirect to success page or wherever
-            } else {
-              toast.error('Payment Verification Failed');
-            }
-          },
-          prefill: {
-            name: formData.name,
-            email: formData.email,
-            contact: formData.phone,
-          },
-        };
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
+      if (formData.paymentMethod === 'Online') {
+        const res = await axios.post('http://localhost:9000/api/signup', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+        if (res.status === 200) {
+          // Open Razorpay Checkout
+          const { orderId, amount } = res.data;
+          const options = {
+            key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+            amount: amount,
+            currency: 'INR',
+            name: 'Bajrang Vahini Dal',
+            description: 'Test Transaction',
+            order_id: orderId,
+            handler: async function (response) {
+              const verificationResponse = await axios.post('http://localhost:9000/api/payment-verification', {
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+                userId: res.data.userId,
+              });
+              if (verificationResponse.status === 200) {
+                setLoading(false)
+                toast.success('Payment Successful');
+                navigate('/success');
+              } else {
+                toast.error('Payment Verification Failed');
+                setLoading(false)
+              }
+            },
+            prefill: {
+              name: formData.name,
+              email: formData.email,
+              contact: formData.phone,
+            },
+          };
+          const paymentObject = new window.Razorpay(options);
+          paymentObject.open();
+        }
       }
-      setLoading(false);
+      else {
+        const res = await axios.post('http://localhost:9000/api/signup', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+        if (res.status === 200) {
+          setLoading(false)
+          toast.success('Offline Payment Option Selected. Form Submitted Successfully.');
+          navigate("/")
+        }
+      }
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data);
       setLoading(false);
     }
   };
 
   return (
     <>
-
       {loading ? <Loading /> : ""}
       <div className="breadcrumb-container">
         <div className="breadcrumb-image">
@@ -280,7 +299,7 @@ const Membership = () => {
                   </label>
                   <select id="state" name="state" value={formData.state} onChange={handleChange} required>
                     <option value="" selected disabled>
-                      Select your state/UT
+                      Select your state
                     </option>
                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -362,7 +381,29 @@ const Membership = () => {
                     <option value="Offline">Offline</option>
                   </select>
                 </div>
-
+                {formData.paymentMethod === 'Offline' && (
+                  <div className="form-group">
+                    <label htmlFor="offlineMethod">
+                      Offline Payment Method<sup className="text-danger">*</sup>
+                    </label>
+                    <select id="offlineMethod" name="offlineMethod" value={offlineMethod} onChange={handleOfflineChange} required>
+                      <option value="" disabled>
+                        Select your offline payment method
+                      </option>
+                      <option value="Cash">Cash</option>
+                      <option value="Check">Cheque</option>
+                      <option value="Check">Other</option>
+                    </select>
+                  </div>
+                )}
+                {formData.paymentMethod === 'Offline' && offlineMethod === 'Cheque' || offlineMethod==="Other"  && (
+                  <div className="form-group">
+                    <label htmlFor="checkNumber">
+                      {offlineMethod==="cheque"?"cheque Number":"Fill Information Other"}<sup className="text-danger">*</sup>
+                    </label>
+                    <input type="text" id="checkNumber" name="checkNumber" value={formData.checkNumber} onChange={handleChange} required />
+                  </div>
+                )}
                 <button type="button" className="btn btn-warning" onClick={handlePrevious}>
                   Previous
                 </button> &nbsp;
