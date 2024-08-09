@@ -295,7 +295,7 @@ const Membership = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="state">
-                    State/UT<sup className="text-danger">*</sup>
+                    State<sup className="text-danger">*</sup>
                   </label>
                   <select id="state" name="state" value={formData.state} onChange={handleChange} required>
                     <option value="" selected disabled>
@@ -381,6 +381,7 @@ const Membership = () => {
                     <option value="Offline">Offline</option>
                   </select>
                 </div>
+
                 {formData.paymentMethod === 'Offline' && (
                   <div className="form-group">
                     <label htmlFor="offlineMethod">
@@ -391,19 +392,30 @@ const Membership = () => {
                         Select your offline payment method
                       </option>
                       <option value="Cash">Cash</option>
-                      <option value="Check">Cheque</option>
-                      <option value="Check">Other</option>
+                      <option value="Cheque">Cheque</option>
+                      <option value="Other">Other</option>
                     </select>
                   </div>
                 )}
-                {formData.paymentMethod === 'Offline' && offlineMethod === 'Cheque' || offlineMethod==="Other"  && (
+
+                {formData.paymentMethod === 'Offline' && offlineMethod === 'Cheque' && (
                   <div className="form-group">
                     <label htmlFor="checkNumber">
-                      {offlineMethod==="cheque"?"cheque Number":"Fill Information Other"}<sup className="text-danger">*</sup>
+                      Cheque Number<sup className="text-danger">*</sup>
                     </label>
                     <input type="text" id="checkNumber" name="checkNumber" value={formData.checkNumber} onChange={handleChange} required />
                   </div>
                 )}
+
+                {formData.paymentMethod === 'Offline' && offlineMethod === 'Other' && (
+                  <div className="form-group">
+                    <label htmlFor="otherInformation">
+                      Additional Information<sup className="text-danger">*</sup>
+                    </label>
+                    <input type="text" id="otherInformation" name="otherInformation" value={formData.otherInformation} onChange={handleChange} required />
+                  </div>
+                )}
+
                 <button type="button" className="btn btn-warning" onClick={handlePrevious}>
                   Previous
                 </button> &nbsp;
