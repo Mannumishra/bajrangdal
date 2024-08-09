@@ -21,6 +21,8 @@ import Water from './Components/Water/Water';
 import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
 import TermsOfService from './Components/TermsOfService/TermsOfService';
 import PaymentSuccess from './Components/Payment/Payment';
+import ShippingAndDelivery from './Components/ShippingAndDelivery/ShippingAndDelivery';
+import ReturnAndRefundPolicy from './Components/ReturnAndRefundPolicy/ReturnAndRefundPolicy';
 
 
 
@@ -45,6 +47,8 @@ function App() {
         <Route path='/privacyPolicy' element={<PrivacyPolicy />} />
         <Route path='/termservice' element={<TermsOfService />} />
         <Route path='/success' element={<PaymentSuccess />} />
+        <Route path='/shipping' element={<ShippingAndDelivery />} />
+        <Route path='/return' element={<ReturnAndRefundPolicy />} />
       </Routes>
       <Footer />
       <Toaster />

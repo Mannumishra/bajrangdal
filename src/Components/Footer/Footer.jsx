@@ -33,6 +33,8 @@ const Footer = () => {
             <h3>Use Full Links</h3>
             <div><h4><Link to='/privacyPolicy' style={{textDecoration:"none" ,color:"white"}}>Privacy Policy</Link></h4></div>
             <div><h4><Link to='/termservice' style={{textDecoration:"none" ,color:"white"}}>Term Of Service</Link></h4></div>
+            <div><h4><Link to='/shipping' style={{textDecoration:"none" ,color:"white"}}>Shipping & Delivery</Link></h4></div>
+            <div><h4><Link to='/return' style={{textDecoration:"none" ,color:"white"}}>Return & RefundPolicy</Link></h4></div>
           </div>
         </div>
         <div className="footer-contact">
