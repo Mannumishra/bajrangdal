@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
 import "./Payment.css"
 
 const PaymentSuccess = () => {
@@ -13,20 +12,17 @@ const PaymentSuccess = () => {
     const OrderId = queryParams.get('Order');
     setOrderid(OrderId);
   }, [location]);
+
   return (
     <div className="container py-5">
       <div className="row justify-content-center">
         <div className="col-lg-6 mb-5" data-aos="fade-up">
           <h2 className="display-4 text-danger mb-4">Payment Successful!</h2>
-          <p className="fs-5 mb-4">Thank you for your purchase. Your order has been placed successfully.</p>
+          <p className="fs-5 mb-4">Thank you! Your membership registration has been successfully processed. We are grateful for your support. you will get confirmation mail from our side. </p>
           <div className="card shadow-sm mb-4">
-            <div className="card-body">
-              <h3 className="card-title fs-4">Order Information</h3>
-             
-            </div>
           </div>
           <Link to={'/'} className="btn btn-primary btn-lg">
-            Shop More
+            Return to Homepage
           </Link>
         </div>
         <div className="col-lg-6 d-none d-lg-block" data-aos="fade-left">
