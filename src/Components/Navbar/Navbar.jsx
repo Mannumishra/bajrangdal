@@ -90,9 +90,9 @@ const Navbar = () => {
                             <li><Link to='/gallery'>Gallery</Link></li>
                             <li><Link to='/contact'>Contact Us</Link></li>
                         </ul>
-                        <div className="donate-btn">
+                        {/* <div className="donate-btn">
                             <Link to='/membership'>Donate now</Link>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
@@ -150,7 +150,7 @@ const Navbar = () => {
                         <li><Link to={'/membership'} onClick={handleMobDeActive} >Membership</Link></li>
                         <li><Link to={'/news'} onClick={handleMobDeActive} >Gallery</Link></li>
                         <li><Link to={'/gallery'} onClick={handleMobDeActive} >Contact Us</Link></li>
-                        <li><Link to={'/membership'} onClick={handleMobDeActive} >Donate now</Link></li>
+                        {/* <li><Link to={'/membership'} onClick={handleMobDeActive} >Donate now</Link></li> */}
                     </ul>
                     <div className="social-details">
                         <a href="mailto:bajrangvahinidal@gmail.com" className="email" style={{ textDecoration: "none", color: "white" }}>

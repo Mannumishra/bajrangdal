@@ -1,5 +1,5 @@
 .twocard-section {
-  padding: 50px 120px; /* Reduced padding for smaller screens */
+  padding: 50px 10%; /* Adjusted padding for better responsiveness */
   background-color: #f5f5f5;
   text-align: center;
 }
@@ -16,7 +16,7 @@
   background: #F5812A;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 50px 20px; /* Reduced padding for smaller screens */
+  padding: 50px 20px; /* Padding for cards */
   text-align: center;
   width: 100%; /* Full width on smaller screens */
   max-width: 48%; /* Maximum width for larger screens */
@@ -25,7 +25,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px; /* Added margin to separate cards */
+  margin-bottom: 20px; /* Margin to separate cards */
   height: 300px;
 }
 
@@ -47,18 +47,13 @@
 }
 
 .text-container-two p {
-  font-size: 45px; /* Reduced font size for smaller screens */
+  font-size: 45px; /* Default font size */
   font-weight: bold;
   color: white;
-  text-align: left;
+  text-align: center; /* Centered text for better look */
   line-height: 40px;
   cursor: pointer;
-  /* text-align: center; */
 }
-
-/* .text-container-two p:hover {
-  color: #fbd45a;
-} */
 
 .twocard-button {
   background-color: white;
@@ -70,9 +65,10 @@
   padding: 10px 35px;
   font-size: 16px;
   cursor: pointer;
-  width: 30%; /* Increased width for better touch targets */
+  width: auto; /* Adjust width for better touch targets */
+  max-width: 200px; /* Max width for button */
   transition: background-color 0.3s ease-in-out;
-  margin: 0 auto; /* Centered the button */
+  margin: 20px auto; /* Centered the button and added margin */
 }
 
 .twocard-button:hover {
@@ -82,29 +78,47 @@
 /* Media queries for responsiveness */
 @media (max-width: 1024px) {
   .twocard {
-      max-width: 48%; /* 2 cards per row on medium screens */
-      padding: 40px 20px; /* Adjust padding for medium screens */
+    max-width: 48%; /* 2 cards per row on medium screens */
+    padding: 40px 20px; /* Adjust padding for medium screens */
+  }
+
+  .twocard-button {
+    width: auto; /* Width adjusted for medium screens */
   }
 }
 
 @media (max-width: 768px) {
   .twocard {
-      max-width: 100%; /* Full width on smaller screens */
-      padding: 30px 20px; /* Adjust padding for small screens */
+    max-width: 100%; /* Full width on smaller screens */
+    padding: 30px 20px; /* Adjust padding for small screens */
   }
 
   .text-container-two p {
-      font-size: 20px; /* Adjust font size for small screens */
+    font-size: 20px; /* Adjust font size for small screens */
   }
-}
 
+  .twocard-button {
+    max-width: 150px; /* Max width for button on small screens */
+  }
+  .text-container-two p {
+    line-height: 19px;
+}
+}
 @media (max-width: 480px) {
   .twocard {
-      max-width: 100%; /* Full width on extra small screens */
-      padding: 20px 10px; /* Adjust padding for extra small screens */
+    max-width: 100%; /* Full width on extra small screens */
+    padding: 20px 10px; /* Adjust padding for extra small screens */
+    height: 200px;
   }
 
   .text-container-two p {
-      font-size: 18px; /* Adjust font size for extra small screens */
+    font-size: 18px; /* Adjust font size for extra small screens */
   }
+
+  .twocard-button {
+    max-width: 1660px; /* Max width for button on extra small screens */
+  }
+  .text-container-two p {
+    line-height: 19px;
+}
 }

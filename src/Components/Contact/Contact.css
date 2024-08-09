@@ -1,135 +1,148 @@
-.contact-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 20px;
-  }
-  
-  .contact-info {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    max-width: 45%;
-    padding: 0px;
-  }
-  
-  .contact-info h2 {
-    margin-bottom: 20px;
-  }
-  
-  .info-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .icon {
-    margin-right: 10px;
-    font-size: 30px;
-    font-weight: 700;
-    color: #F5812A !important;
-  }
-  
-  .contact-form {
-    flex: 1;
-    max-width: 45%;
-    padding: 20px;
-  }
-  
-  .contact-form h2 {
-    margin-bottom: 20px;
-    color: #F5812A;
-    font-size: 40px;
-    font-weight: 700;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  input,
-  textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    background-color: #FBD45A;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  button:hover {
-    background-color: #f1c40f;
-  }
-  
-  .map-container {
-    margin-top: 30px;
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .contact-container {
+/* .breadcrumb-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.breadcrumb-image {
+  flex: 1;
+}
+
+.breadcrumb-image img {
+  max-width: 100%;
+}
+
+.breadcrumb-text {
+  flex: 2;
+  text-align: center;
+}
+
+.breadcrumb-text p {
+  margin: 0;
+} */
+
+.contactBajrang-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.contactBajrang-details {
+  flex: 1;
+  max-width: 45%;
+}
+
+.contactBajrang-details h2 {
+  /* margin-bottom: 20px; */
+}
+
+.contactBajrang-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.icon {
+  margin-right: 10px;
+  font-size: 30px;
+  color: #F5812A;
+}
+
+.contactBajrang-form {
+  flex: 1;
+  max-width: 45%;
+}
+
+.contactBajrang-form h2 {
+  margin-bottom: 20px;
+  color: #F5812A;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.form-field {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.conbutton {
+  padding: 10px 20px;
+  background-color: #FBD45A;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.conbutton:hover {
+  background-color: #f1c40f;
+}
+
+.map-wrapper {
+  margin-top: 30px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .contactBajrang-wrapper {
       flex-direction: column;
       align-items: center;
       padding: 10px;
-    }
-  
-    .contact-info,
-    .contact-form {
+  }
+
+  .contactBajrang-details,
+  .contactBajrang-form {
       max-width: 100%;
       padding: 10px;
-    }
-  
-    .contact-form {
+  }
+
+  .contactBajrang-form {
       margin-top: 20px;
-    }
-  
-    .breadcrumb-container {
+  }
+
+  .breadcrumb-wrapper {
       flex-direction: column;
       align-items: center;
-    }
-  
-    .breadcrumb-image img {
-      max-width: 100%;
-    }
-  
-    .breadcrumb-text p {
+  }
+
+  .breadcrumb-text p {
       font-size: 1rem;
       text-align: center;
-    }
-  
-    .map-container iframe {
-      height: 300px;
-    }
   }
-  
-  @media (max-width: 480px) {
-    .info-item {
+
+  .map-wrapper iframe {
+      height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactBajrang-item {
       flex-direction: column;
       align-items: flex-start;
-    }
-  
-    .icon {
+  }
+
+  .icon {
       margin-right: 0;
       margin-bottom: 5px;
-    }
-  
-    button {
+  }
+
+  .conbutton {
       width: 100%;
       padding: 15px;
-    }
   }
-  
+}

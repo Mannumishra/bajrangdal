@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import image from '../../Images/1698995952_5db1424e8afbf6462406.jpeg';
 import brudcrumb from '../../Images/brudcrum.png'
 import './About.css';
+import { Link } from 'react-router-dom';
 
 const About = () => {
   const location = window.location.pathname
@@ -18,9 +19,9 @@ const About = () => {
           <div className="breadcrumb-image">
             <img src={brudcrumb} alt="Breadcrumb" />
           </div>
-          <div className="breadcrumb-text">
-            <p>Home / <span style={{ color: "#FBD45A" }}>About Us</span></p>
-          </div>
+          {/* <div className="breadcrumb-text">
+            <p><span><Link to='/'>Home</Link></span> / <span style={{ color: "#FBD45A" }}>About Us</span></p>
+          </div> */}
         </div>
       }
       <div className="about-container">

@@ -8,9 +8,9 @@ const Water = () => {
                 <div className="breadcrumb-image">
                     <img src={brudcrumb} alt="Breadcrumb" />
                 </div>
-                <div className="breadcrumb-text">
+                {/* <div className="breadcrumb-text">
                     <p>Home / <span style={{ color: "#FBD45A" }}>About Us</span></p>
-                </div>
+                </div> */}
             </div >
 
             <div className="about-container">
