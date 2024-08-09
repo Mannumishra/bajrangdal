@@ -49,7 +49,7 @@ const Membership = () => {
   const sendOtp = async () => {
     try {
       setLoading(true)
-      const res = await axios.post('http://localhost:9000/api/send-otp', { email: formData.email });
+      const res = await axios.post('https://bajrangserver.onrender.com/api/send-otp', { email: formData.email });
       if (res.status === 200) {
         toast.success("OTP Sent Successfully !!!!");
         setOtpSent(true);
@@ -69,7 +69,7 @@ const Membership = () => {
   const verifyOtp = async () => {
     try {
       setLoading(true)
-      const res = await axios.post('http://localhost:9000/api/verify-otp', { email: formData.email, otp });
+      const res = await axios.post('https://bajrangserver.onrender.com/api/verify-otp', { email: formData.email, otp });
       if (res.status === 200) {
         setVerifyMessage("Email Verify Successfully");
         setVerifyMail(true);
@@ -132,7 +132,7 @@ const Membership = () => {
     try {
       setLoading(true);
       if (formData.paymentMethod === 'Online') {
-        const res = await axios.post('http://localhost:9000/api/signup', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+        const res = await axios.post('https://bajrangserver.onrender.com/api/signup', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
         if (res.status === 200) {
           // Open Razorpay Checkout
           const { orderId, amount } = res.data;
@@ -144,7 +144,7 @@ const Membership = () => {
             description: 'Test Transaction',
             order_id: orderId,
             handler: async function (response) {
-              const verificationResponse = await axios.post('http://localhost:9000/api/payment-verification', {
+              const verificationResponse = await axios.post('https://bajrangserver.onrender.com/api/payment-verification', {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_signature: response.razorpay_signature,
@@ -170,7 +170,7 @@ const Membership = () => {
         }
       }
       else {
-        const res = await axios.post('http://localhost:9000/api/signup', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+        const res = await axios.post('https://bajrangserver.onrender.com/api/signup', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
         if (res.status === 200) {
           setLoading(false)
           toast.success('Offline Payment Option Selected. Form Submitted Successfully.');
