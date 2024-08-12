@@ -18,6 +18,9 @@ const Membership = () => {
     city: '',
     state: '',
     image: '',
+    adharcardFront: "",
+    adharnumber: "",
+    adharcardBack: "",
     paymentMethod: '',
     donationAmount: '',
     checkNumber: ''
@@ -49,7 +52,7 @@ const Membership = () => {
   const sendOtp = async () => {
     try {
       setLoading(true)
-      const res = await axios.post('https://api.bajrangvahinidal.com/api/send-otp', { email: formData.email });
+      const res = await axios.post('http://localhost:8000/api/send-otp', { email: formData.email });
       if (res.status === 200) {
         toast.success("OTP Sent Successfully !!!!");
         setOtpSent(true);
@@ -69,7 +72,7 @@ const Membership = () => {
   const verifyOtp = async () => {
     try {
       setLoading(true)
-      const res = await axios.post('https://api.bajrangvahinidal.com/api/verify-otp', { email: formData.email, otp });
+      const res = await axios.post('http://localhost:8000/api/verify-otp', { email: formData.email, otp });
       if (res.status === 200) {
         setVerifyMessage("Email Verify Successfully");
         setVerifyMail(true);
@@ -114,6 +117,9 @@ const Membership = () => {
     setFormData({ ...formData, [name]: files[0] });
   };
 
+  const checkadharnumber = ()=>{
+    toast.error("Please Enter correct Aadhar Number")
+  }
   const formdata = new FormData();
   formdata.append('title', formData.title);
   formdata.append('name', formData.name);
@@ -124,6 +130,9 @@ const Membership = () => {
   formdata.append('city', formData.city);
   formdata.append('state', formData.state);
   formdata.append('image', formData.image);
+  formdata.append("adharnumber", formData.adharnumber)
+  formdata.append("adharcardFront", formData.adharcardFront)
+  formdata.append("adharcardBack", formData.adharcardBack)
   formdata.append('paymentMethod', formData.paymentMethod);
   formdata.append('donationAmount', formData.donationAmount);
 
@@ -132,7 +141,8 @@ const Membership = () => {
     try {
       setLoading(true);
       if (formData.paymentMethod === 'Online') {
-        const res = await axios.post('https://api.bajrangvahinidal.com/api/signup', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+        const res = await axios.post('http://localhost:8000/api/signup', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+        console.log(res)
         if (res.status === 200) {
           // Open Razorpay Checkout
           const { orderId, amount } = res.data;
@@ -144,12 +154,13 @@ const Membership = () => {
             description: 'Test Transaction',
             order_id: orderId,
             handler: async function (response) {
-              const verificationResponse = await axios.post('https://api.bajrangvahinidal.com/api/payment-verification', {
+              const verificationResponse = await axios.post('http://localhost:8000/api/payment-verification', {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_signature: response.razorpay_signature,
                 userId: res.data.userId,
               });
+              console.log(verificationResponse)
               if (verificationResponse.status === 200) {
                 setLoading(false)
                 toast.success('Payment Successful');
@@ -170,7 +181,7 @@ const Membership = () => {
         }
       }
       else {
-        const res = await axios.post('https://api.bajrangvahinidal.com/api/signup', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+        const res = await axios.post('http://localhost:8000/api/signup', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
         if (res.status === 200) {
           setLoading(false)
           toast.success('Offline Payment Option Selected. Form Submitted Successfully.');
@@ -201,9 +212,9 @@ const Membership = () => {
           <h4 className="text-center p-4 memvershipmainheading"><u>Join us fill the membership form</u></h4>
         </div>
         <div className="row">
-          <div className="col-md-6 memberimage">
+          {/* <div className="col-md-6 memberimage">
             <img src={image} alt="" />
-          </div>
+          </div> */}
           <div className="col-md-6">
             {step === 1 && (
               <div className="membership-form">
@@ -289,6 +300,26 @@ const Membership = () => {
                 <h3>Contact Information</h3>
                 <div className="form-group">
                   <label htmlFor="address">
+                    Adharcard Number<sup className="text-danger">*</sup>
+                  </label>
+                  <input type="number" id="address" name="adharnumber" title="Aadhaar number must be exactly 12 digits" pattern="\d{12}" value={formData.adharnumber} onChange={handleChange} required />
+                </div>
+                <div className="row">
+                  <div className="col-md-6 mb-2">
+                    <label htmlFor="zip">
+                      Upload Adharcard Front<sup className="text-danger">*</sup>
+                    </label>
+                    <input type="file" id="zip" name="adharcardFront" onChange={getfiledta} required />
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="zip">
+                      Upload Adharcard Back<sup className="text-danger">*</sup>
+                    </label>
+                    <input type="file" id="zip" name="adharcardBack" onChange={getfiledta} required />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="address">
                     Address<sup className="text-danger">*</sup>
                   </label>
                   <input type="text" id="address" name="address" value={formData.address} onChange={handleChange} required />
@@ -348,16 +379,21 @@ const Membership = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="zip">
-                    Profile Pic<sup className="text-danger">*</sup>
+                    Profile Pic
                   </label>
                   <input type="file" id="zip" name="image" onChange={getfiledta} required />
                 </div>
+
                 <button type="button" className="btn btn-warning" onClick={handlePrevious}>
                   Previous
                 </button> &nbsp;
-                <button type="button" className="btn btn-warning" onClick={handleNext}>
-                  Next
-                </button>
+                {
+                  formData.adharnumber.length === 12 ? <button type="button" className="btn btn-warning" onClick={handleNext}>
+                    Next
+                  </button> : <button type="button" className="btn btn-warning" onClick={checkadharnumber}>
+                    Next
+                  </button>
+                }
               </div>
             )}
             {step === 3 && (
@@ -403,7 +439,7 @@ const Membership = () => {
                     <label htmlFor="checkNumber">
                       Cheque Number<sup className="text-danger">*</sup>
                     </label>
-                    <input type="text" id="checkNumber" name="checkNumber" value={formData.checkNumber} onChange={handleChange} required  placeholder='Cheque Number'/>
+                    <input type="text" id="checkNumber" name="checkNumber" value={formData.checkNumber} onChange={handleChange} required placeholder='Cheque Number' />
                   </div>
                 )}
 
@@ -412,7 +448,7 @@ const Membership = () => {
                     <label htmlFor="otherInformation">
                       Additional Information<sup className="text-danger">*</sup>
                     </label>
-                    <input type="text" id="otherInformation" name="checkNumber" value={formData.checkNumber} onChange={handleChange} required placeholder='Refrence Number'/>
+                    <input type="text" id="otherInformation" name="checkNumber" value={formData.checkNumber} onChange={handleChange} required placeholder='Refrence Number' />
                   </div>
                 )}
 
