@@ -189,7 +189,7 @@ const Membership = () => {
         }
       }
     } catch (error) {
-      console.log(error);
+      console.log("My error" , error);
       setLoading(false);
     }
   };
